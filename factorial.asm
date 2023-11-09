@@ -1,21 +1,20 @@
+ include 'emu8086.inc'
 org 100h
 
-.DATA
-ANS DB ?
-.CODE
-MAIN PROC
-    MOV AX,@DATA
-    MOV DS,AX
-    MOV AL,5
-    MOV CL,4
-    MOV BL,AL
-    SUB BL,1
-    L:
-    MUL BL
-    SUB BL,1
-    LOOP L
-    
-    MOV ANS,AL
-    END MAIN
-    
-    ret
+CALL SCAN_NUM  
+MOV BL,CL     
+MOV AX , 0001H
+
+FACT:
+    MUL BL 
+    DEC BL  
+    DEC CL
+    CMP CL,0
+    JNE FACT
+    ;LOOP FACT
+CALL PRINT_NUM
+
+ret
+DEFINE_SCAN_NUM   
+DEFINE_PRINT_NUM   
+DEFINE_PRINT_NUM_UNS
